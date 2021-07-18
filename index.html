@@ -21,7 +21,7 @@
             <h3>Search for a City:</h3>
             <form id="search-form">
               <input name="searchCityInput" id="searchCity" type="text" autofocus="true" class="form-input" />
-              <button type="button" class="btn btn-primary">Search</button>
+              <button type="button" class="btn btn-primary" id="searchBtn">Search</button>
             </form>
             
             <hr/>
@@ -35,8 +35,8 @@
 
             <!-- Current Weather Container -->
             <div class="card" style="width: auto;">
-                <div class="card-body">
-                    <h5 class="card-title" id="current-city-weather">current city</h5>
+                <div class="card-body" id="current-city-weather">
+                    <h5 class="card-title"></h5>
                         <img id="current-weather-icon">
                     <p class="card-text">Temp: <span class="card-text" id="current-temp"></span></p>
                     <p class="card-text">Wind: <span class="card-text" id="current-wind-speed"></span></p>
