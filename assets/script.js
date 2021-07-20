@@ -29,12 +29,11 @@ var forecastHumidityEl = $('#forecast-humidity');
 var today = moment();
 $("#currentDate").text(today.format("MMM Do, YYYY"));
 
-localStorage.setItem("city", userCityInputEl);
 
-function getApi() {
-  // var userInput = userCityInputEl.Value.trim();
-  var userInput = 'Asheboro'
-  var requestUrl = 'https://api.openweathermap.org/data/2.5/weather?q=' + userInput + '&units=imperial&appid=' + APIKey;
+function getApi(spaghetti) {
+  // var userInput = 'Asheboro'
+
+  var requestUrl = 'https://api.openweathermap.org/data/2.5/weather?q=' + spaghetti + '&units=imperial&appid=' + APIKey;
     console.log(requestUrl)
   fetch(requestUrl)
     .then(function (response) {
@@ -64,32 +63,27 @@ function getApi() {
 
       })
     });
-}
-getApi();
+};
+// getApi();
 
-// function getApi() {
-//     var userInput =userCityInput.Value.trim();
-//   // fetch request gets gets Latitude and longitude based on user input.
-//   var requestUrl = 'https://api.openweathermp.org/daata/2.5/weather?q=' + userInput +'&appid=' + APIKey ;
-// console.log(requestUrl);
-//   fetch(requestUrl)
-//   .then(function (response) {
-//     return response.json();
-//   })
-//   .then(function (data) {
-//     console.log(data)
+searchButtonEl.on('click', function () {
+  var userInput = userCityInputEl.val().trim();
+getApi(userInput);
 
-//   })
-//   .on('click', getApi)
-// }
+localStorage.setItem("city", userInput);
+
+})
+//creat a variable as the city key from local storage
+//create button 
+//append that button 
+
+
 // // create buttons for previously searched city
 
 // var searchCityEl =$('#search-form');
 // var searchHistoryEl = $('#addBtnSearch')
 
 // function handleCitySubmit(event) {
-//     event.preventDefault();
-
 //     var searchedCity = $('input[name="searchCityInput"]').val();
 
 //     // if (!searchedCity) {
@@ -104,10 +98,3 @@ getApi();
 //  }
 
 // searchCityEl.on('click', handleCitySubmit)
-
-
-
-
-
-
-    // var requestOneCall = 'https://api.openweathermap.org/data/2.5/onecall?lat='+ latitude +'&lon=' + longitude + '&units=imperial&exclude=hourly,minutely,alerts&appid=5c5a571775e8eded1b0f694bee36a7b4'
