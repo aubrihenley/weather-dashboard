@@ -17,6 +17,7 @@ var currentTempEl = $('#currentTemp');
 var currentWindEl = $('#currentWindSpeed');
 var currentHumidityEl = $('#currentHumidity') ;
 var currentUviEl = $('#currentUVI');
+var currentIcon = $('#currentWeatherIcon');
 
 //5-day Forecast selectors
 var forecastDateEl = $('#forecast-date');
@@ -28,22 +29,40 @@ var forecastHumidityEl = $('#forecast-humidity');
 var today = moment();
 $("#currentDate").text(today.format("MMM Do, YYYY"));
 
+localStorage.setItem("city", userCityInputEl);
 
 function getApi() {
-  var requestUrl = 'https://api.openweathermap.org/data/2.5/weather?q=asheboro&units=imperial&appid=' + APIKey;
-
+  // var userInput = userCityInputEl.Value.trim();
+  var userInput = 'Asheboro'
+  var requestUrl = 'https://api.openweathermap.org/data/2.5/weather?q=' + userInput + '&units=imperial&appid=' + APIKey;
+    console.log(requestUrl)
   fetch(requestUrl)
     .then(function (response) {
       return response.json();
     })
     .then(function (data){
-      console.log(data)
-      for (var i = 0; i < data.length; i++) {
+      console.log(data);
+      console.log("data type", typeof data);
       
-      console.log(data[i].main.name);
+      cityEl.text(data.name);
+      
+      var cityLat = (data.coord.lat);
+      var cityLong =(data.coord.lon);
+      var oneCallURL = 'https://api.openweathermap.org/data/2.5/onecall?lat='+ cityLat +'&lon=' + cityLong + '&units=imperial&exclude=hourly,minutely,alerts&appid=' + APIKey;
 
+    fetch(oneCallURL)
+      .then(function(response){
+        return response.json();
+      })
+      .then(function(data){
+        console.log(data);
 
-      }
+        currentTempEl.text(data.current.temp +'\xB0' + 'F');
+        currentWindEl.text(data.current.wind_speed);
+        currentHumidityEl.text(data.current.humidity);
+        currentUviEl.text(data.current.uvi);
+
+      })
     });
 }
 getApi();
@@ -87,24 +106,8 @@ getApi();
 // searchCityEl.on('click', handleCitySubmit)
 
 
-// function getApi() {
-//     // fetch request gets a list of all the repos for the node.js organization
-//     var requestUrlLatLon = 'https://api.openweathermap.org/data/2.5/weather?q=asheboro&units=imperial&appid=' + APIKey;
-  
-//     fetch(requestUrlLatLon)
-//       .then(function (response) {
-//         return response.json();
-//       })
-//       .then(function (data) {
-//         console.log('longitude & latitude \n----------') 
-//         for (var i = 0; i < data.length; i++) {
-//           console.log(data[i].coord.lat);
-//           console.log(data[i]);
-//       };
-//     });
-// }
-    
 
-//     getApi();
+
+
 
     // var requestOneCall = 'https://api.openweathermap.org/data/2.5/onecall?lat='+ latitude +'&lon=' + longitude + '&units=imperial&exclude=hourly,minutely,alerts&appid=5c5a571775e8eded1b0f694bee36a7b4'
