@@ -29,4 +29,4 @@ THEN I am again presented with current and future conditions for that city
 
 Link to deployed site: https://aubrihenley.github.io/weather-dashboard/
 
-Screen Shot: ![Weather Dashboard Screenshot](https://github.com/aubrihenley/)
+Screen Shot: ![Weather Dashboard Screenshot](https://github.com/aubrihenley/weather-dashboard/blob/main/assets/images/weatherscreenshot.png)
